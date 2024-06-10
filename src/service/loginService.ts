@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
 import { Optional } from 'src/model/types';
 import { useUserStore } from 'src/stores/user';
+import useApi from './apiService';
 
 type User = {
   id: number;
@@ -9,15 +9,12 @@ type User = {
   password: string;
 };
 
-const API: string = 'http://localhost:3000';
-
-const http: AxiosInstance = axios.create({ baseURL: API });
-
 const store = useUserStore();
 
 export function login(email: string, password: string): Promise<boolean> {
+  const { api } = useApi();
   return new Promise<boolean>(async (resolve, reject) => {
-    const response = await http.get<User[]>('/users');
+    const response = await api.get<User[]>('/users');
     const user = response.data.find(
       (user) => user.email === email && user.password === password,
     );
@@ -25,7 +22,7 @@ export function login(email: string, password: string): Promise<boolean> {
       store.saveUser({
         name: user.name,
         email: user.email,
-        token: 'Bearer aaaaa',
+        token: 'aaaaaaa',
         id: user.id,
       });
       resolve(true);
@@ -36,7 +33,8 @@ export function login(email: string, password: string): Promise<boolean> {
 }
 
 export function createAcc(user: Optional<User, 'id'>) {
-  return http.post('/users', user);
+  const { api } = useApi();
+  return api.post('/users', user);
 }
 
 export function logout() {

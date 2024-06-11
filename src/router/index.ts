@@ -37,8 +37,14 @@ export default route(function (/* { store, ssrContext } */) {
   const { isUserAutehnticated } = useApi();
 
   Router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !isUserAutehnticated()) {
-      next({ path: '/' });
+    if (to.meta.requiresAuth) {
+      isUserAutehnticated().then((isAuthenticated) => {
+        if (isAuthenticated) {
+          next();
+        } else {
+          next({ path: '/login' });
+        }
+      });
     } else {
       next();
     }

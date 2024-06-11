@@ -1,10 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hhh lpr fff">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title> VUE Template </q-toolbar-title>
       </q-toolbar>
     </q-header>
 

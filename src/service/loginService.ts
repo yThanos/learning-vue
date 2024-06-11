@@ -19,14 +19,19 @@ export function login(email: string, password: string): Promise<boolean> {
       (user) => user.email === email && user.password === password,
     );
     if (user) {
+      console.log(user);
       store.saveUser({
         name: user.name,
         email: user.email,
         token: 'aaaaaaa',
         id: user.id,
+        logged: true,
       });
+      //api.put('/isTokenValid', { isTokenValid: true });
+      store.setLogged(true);
       resolve(true);
     } else {
+      console.log('User not found');
       reject(false);
     }
   });
@@ -39,4 +44,7 @@ export function createAcc(user: Optional<User, 'id'>) {
 
 export function logout() {
   store.removeUser();
+  //const { api } = useApi();
+  store.setLogged(false);
+  //api.put('/isTokenValid', { isTokenValid: false });
 }

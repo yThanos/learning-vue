@@ -5,13 +5,15 @@ export type User = {
   name: string;
   email: string;
   token: string;
+  logged: boolean;
 };
 
-const defaultUser = {
+const defaultUser: User = {
   id: 0,
   name: '',
   email: '',
   token: '',
+  logged: false,
 };
 /*
 const getUser = () => {
@@ -27,6 +29,9 @@ export const useUserStore = defineStore('user', {
     getToken(state) {
       return state.user.token;
     },
+    isLoggedIn(state) {
+      return state.user.logged;
+    },
   },
   actions: {
     saveUser(user: User) {
@@ -36,6 +41,9 @@ export const useUserStore = defineStore('user', {
     removeUser() {
       this.user = defaultUser;
       //localStorage.removeItem('user');
+    },
+    setLogged(value: boolean) {
+      this.user.logged = value;
     },
   },
 });

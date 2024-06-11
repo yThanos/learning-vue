@@ -18,5 +18,8 @@
       "email": "vitor@gmail.com",
       "password": "1234"
     }
-  ]
+  ],
+  "isTokenValid": {
+    "isTokenValid": true
+  }
 }

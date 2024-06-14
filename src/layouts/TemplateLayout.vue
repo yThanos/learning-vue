@@ -60,7 +60,7 @@
     </q-drawer>
 
     <q-drawer
-      show-if-above
+      v-if="isLoggedIn"
       v-model="rightDrawerOpen"
       side="right"
       elevated
@@ -91,15 +91,23 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import { DrawerItem } from 'src/model/types';
 import { logout } from 'src/service/loginService';
 import { useUserStore } from 'src/stores/user';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-const { isLoggedIn, user } = useUserStore();
+const data = useUserStore();
+const { user, isLoggedIn } = storeToRefs(data);
 const router = useRouter();
 const active = ref(1);
 const rightDrawerOpen = ref(false);
+
+/*const miniState = ref(false);
+:mini="miniState"
+@mouseover="miniState = false"
+@mouseout="miniState = true"
+mini-to-overlay*/
 
 const menuItems = ref<DrawerItem[]>([
   { icon: 'home', label: 'DashBoard', id: 1, route: '/' },

@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <!--Back button that leads to /login-->
       <q-card-actions align="left">
         <q-btn flat dense to="/login" icon="arrow_back" label="Voltar" />
       </q-card-actions>
@@ -58,12 +57,12 @@ const password = ref('');
 
 const router = useRouter();
 
-const register = () => {
+function register() {
   createAcc({
     name: name.value,
     email: email.value,
     password: password.value,
   });
   router.push('/');
-};
+}
 </script>

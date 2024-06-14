@@ -1,6 +1,7 @@
 import { Optional } from 'src/model/types';
 import { useUserStore } from 'src/stores/user';
 import useApi from './apiService';
+import { useRouter } from 'vue-router';
 
 type User = {
   id: number;
@@ -43,8 +44,8 @@ export function createAcc(user: Optional<User, 'id'>) {
 }
 
 export function logout() {
+  const router = useRouter();
   store.removeUser();
-  //const { api } = useApi();
   store.setLogged(false);
-  //api.put('/isTokenValid', { isTokenValid: false });
+  router.replace('/');
 }

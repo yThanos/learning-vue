@@ -19,7 +19,12 @@
             lazy-rules
             :rules="[(val) => !!val || 'Please enter your password']"
           />
-          <q-btn type="submit" color="primary" label="Login" class="q-mt-md" />
+          <q-btn
+            type="submit"
+            color="secondary"
+            label="Login"
+            class="q-mt-md"
+          />
         </q-form>
       </q-card-section>
       <q-card-actions>

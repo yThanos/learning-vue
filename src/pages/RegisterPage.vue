@@ -34,7 +34,7 @@
               />
               <q-btn
                 type="submit"
-                color="primary"
+                color="secondary"
                 label="Criar"
                 class="q-mt-md"
               />

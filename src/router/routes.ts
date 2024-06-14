@@ -21,6 +21,21 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/IndexPage.vue'),
         meta: { requiresAuth: true },
       },
+      {
+        path: '/dashboard',
+        component: () => import('pages/DashboardPage.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/admin',
+        component: () => import('pages/DashboardPage.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/settings',
+        component: () => import('pages/DashboardPage.vue'),
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {

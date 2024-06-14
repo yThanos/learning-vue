@@ -42,9 +42,10 @@
           v-ripple
           v-for="item in menuItems"
           :key="item.id"
-          @click="navigate(item)"
           :active="active == item.id"
+          @click="navigate(item)"
           active-class="my-menu-link"
+          :to="item.route"
         >
           <q-item-section avatar>
             <q-avatar
@@ -97,28 +98,22 @@ import { logout } from 'src/service/loginService';
 import { useUserStore } from 'src/stores/user';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 const data = useUserStore();
 const { user, isLoggedIn } = storeToRefs(data);
 const router = useRouter();
 const active = ref(1);
 const rightDrawerOpen = ref(false);
 
-/*const miniState = ref(false);
-:mini="miniState"
-@mouseover="miniState = false"
-@mouseout="miniState = true"
-mini-to-overlay*/
-
 const menuItems = ref<DrawerItem[]>([
   { icon: 'home', label: 'Home', id: 1, route: '/' },
-  { icon: 'dashboard', label: 'DashBoard', id: 2, route: '/teste' },
+  { icon: 'dashboard', label: 'DashBoard', id: 2, route: '/dashboard' },
   { icon: 'people', label: 'Admin', id: 3, route: '/teste' },
-  { icon: 'settings', label: 'Configurações', id: 4, route: '/teste' },
+  { icon: 'settings', label: 'Configurações', id: 4, route: '/settings' },
 ]);
 
 function navigate(item: DrawerItem) {
   active.value = item.id;
-  router.push(item.route);
 }
 
 function toggleRightDrawer() {
@@ -130,6 +125,8 @@ function goToLogin() {
 }
 
 function sair() {
+  active.value = 1;
+  router.push('/');
   logout();
 }
 </script>

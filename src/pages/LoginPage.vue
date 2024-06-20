@@ -37,19 +37,16 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { login } from 'src/service/loginService';
+import { useRouter } from 'vue-router';
 
-type Props = { callback: () => void };
-
-const props = withDefaults(defineProps<Props>(), {
-  callback: () => {},
-});
+const router = useRouter();
 const email = ref('');
 const password = ref('');
 
 function onSubmit() {
   login(email.value, password.value).then((e) => {
     if (e) {
-      props.callback();
+      router.push('/');
     }
   });
 }

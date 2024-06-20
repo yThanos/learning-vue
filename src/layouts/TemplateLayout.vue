@@ -43,7 +43,6 @@
           v-for="item in menuItems"
           :key="item.id"
           :active="active == item.id"
-          @click="navigate(item)"
           active-class="my-menu-link"
           :to="item.route"
         >
@@ -96,9 +95,11 @@ import { storeToRefs } from 'pinia';
 import { DrawerItem } from 'src/model/types';
 import { logout } from 'src/service/loginService';
 import { useUserStore } from 'src/stores/user';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
 const data = useUserStore();
 const { user, isLoggedIn } = storeToRefs(data);
 const router = useRouter();
@@ -112,9 +113,17 @@ const menuItems = ref<DrawerItem[]>([
   { icon: 'settings', label: 'Configurações', id: 4, route: '/settings' },
 ]);
 
-function navigate(item: DrawerItem) {
-  active.value = item.id;
-}
+watch(
+  () => route.path,
+  (path) => {
+    const item = menuItems.value.find((e) => e.route === path);
+    if (item) {
+      active.value = item.id;
+    } else {
+      active.value = 0;
+    }
+  },
+);
 
 function toggleRightDrawer() {
   rightDrawerOpen.value = !rightDrawerOpen.value;
